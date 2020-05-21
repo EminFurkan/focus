@@ -126,12 +126,11 @@ main .start:active {
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-top: 1rem;
 }
 
 .data p {
+  margin: auto;
   margin-top: auto;
-  padding: 0 1rem;
+  padding: 0 10px;
 }

@@ -1,6 +1,8 @@
+const { ipcRenderer } = require('electron');
+
 const timer = document.querySelector('.timer');
 const timerBtn = document.querySelector('.timerBtn');
-const start = document.querySelector('.start');
+const startBtn = document.querySelector('.start');
 const shortBreak = document.querySelector('.s-break');
 const longBreak = document.querySelector('.l-break');
 const breakData = document.querySelector('.break-data');
@@ -10,6 +12,7 @@ const settings = document.querySelector('.settings-btn');
 let countDown;
 let seconds = 25 * 60;
 let type;
+let isPaused = true;
 
 const data = {
   totalMins: 0,
@@ -40,8 +43,8 @@ const handleShortBreak = () => {
   timer.textContent = '05:00';
   seconds = 5 * 60;
   type = 'SHORT_BREAK';
-  setTimer();
-  clearInterval(countDown);
+  controlTimer();
+  resetTimer();
 };
 const handleLongBreak = () => {
   document.body.classList.add('long');
@@ -49,32 +52,43 @@ const handleLongBreak = () => {
   timer.textContent = '15:00';
   seconds = 15 * 60;
   type = 'LONG_BREAK';
-  setTimer();
-  clearInterval(countDown);
+  controlTimer();
+  resetTimer();
 };
 const handleTimer = () => {
   document.body.className = '';
   timer.textContent = '25:00';
   seconds = 25 * 60;
   type = 'WORK';
-  setTimer();
-  clearInterval(countDown);
+  controlTimer();
+  resetTimer();
 };
 
-const setTimer = () => {
+const controlTimer = () => {
   const now = Date.now();
   const then = now + seconds * 1000;
-  clearInterval(countDown);
+  isPaused = !isPaused;
 
-  countDown = setInterval(() => {
-    const timeLeft = Math.round((then - Date.now()) / 1000);
-    if (timeLeft < 1) {
-      clearInterval(countDown);
-      setData(seconds, type);
-      displayData();
-    }
-    displayTime(timeLeft);
-  }, 1000);
+  if (!isPaused) {
+    startBtn.textContent = 'Stop';
+    countDown = setInterval(() => {
+      const timeLeft = Math.round((then - Date.now()) / 1000);
+      if (timeLeft < 1) {
+        clearInterval(countDown);
+        setData(seconds, type);
+        displayData();
+        ipcRenderer.send('notification', 'Your timer has finished.');
+      }
+      displayTime(timeLeft);
+    }, 1000);
+  } else {
+    resetTimer();
+  }
+};
+
+const resetTimer = () => {
+  clearInterval(countDown);
+  startBtn.textContent = 'Start';
 };
 
 const displayTime = (seconds) => {
@@ -88,4 +102,4 @@ const displayTime = (seconds) => {
 shortBreak.addEventListener('click', handleShortBreak);
 longBreak.addEventListener('click', handleLongBreak);
 timerBtn.addEventListener('click', handleTimer);
-start.addEventListener('click', setTimer);
+startBtn.addEventListener('click', controlTimer);
