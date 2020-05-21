@@ -5,6 +5,7 @@ const shortBreak = document.querySelector('.s-break');
 const longBreak = document.querySelector('.l-break');
 const breakData = document.querySelector('.break-data');
 const workData = document.querySelector('.work-data');
+const settings = document.querySelector('.settings-btn');
 
 let countDown;
 let seconds = 25 * 60;
