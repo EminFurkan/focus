@@ -1,10 +1,28 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
   margin: auto;
   max-width: 38rem;
   padding: 2rem;
-  background-color: #EE5B55;
-  color: #fff;
+  background-color: var(--background);
+  color: var(--color);
+  transition: .4s ease-out;
+
+  --background: #ee5b55;
+  --color: #fff;
+  --btn: var(--background);
+  --borderColor: #cb5956;
+}
+
+body.short {
+  --background: #4ca6a9;
+  --borderColor: #449597;
+  --btn: var(--background);
+}
+body.long {
+  --background: #498fc1;
+  --borderColor: #4181AD;
+  --btn: var(--background);
 }
 
 /* General Styling */
@@ -16,7 +34,7 @@ button {
   width: 100px;
   height: 30px;
   border-radius: 3px;
-  background-color: rgba(255,255,255,.1);
+  background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +46,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #CB5956;
+  border-bottom: 1px solid var(--borderColor);
   user-select: none;
 }
 
@@ -41,7 +59,7 @@ header {
 main {
   margin: auto;
   margin-top: 5rem;
-  background-color: rgba(255,255,255,.1);
+  background-color: rgba(255, 255, 255, 0.1);
   width: 480px;
   height: 300px;
   border-radius: 10px;
@@ -76,7 +94,7 @@ main .settings .list li button {
 }
 
 main .settings .list li button:hover {
-  background-color: rgba(255,255,255,.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 main .timer {
@@ -89,7 +107,7 @@ main .start {
   background-color: #fff;
   width: 200px;
   height: 55px;
-  color: #EE5B55;
+  color: var(--btn);
   font-size: 22px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -98,5 +116,21 @@ main .start {
 }
 
 main .start:active {
-  transform: scale(.95);
+  transform: scale(0.95);
+}
+
+.data {
+  font-weight: 300;
+  font-size: 12px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.data p {
+  margin-top: auto;
 }
