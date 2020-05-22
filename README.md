@@ -1,7 +1,7 @@
 # Focus
 
 ## description
-[Pomodoro](https://en.wikipedia.org/wiki/Pomodoro_Technique) timer that logs your daily work & rest times and notifies you after each session. <br />
+Focus is a [Pomodoro](https://en.wikipedia.org/wiki/Pomodoro_Technique) timer that logs your daily work & rest times and notifies you after each session. <br />
 You can adjust and balance out the work & rest periods as you like. <br /><br />
 Built with electron, using vanilla JS & CSS on the frontend.
 
