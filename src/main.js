@@ -25,7 +25,7 @@ const createWindow = () => {
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 
-  app.dock.setIcon(__dirname + '/assets/clock.ico');
+  app.dock.setIcon( __dirname + '/assets/clock.ico');
 };
 
 // This method will be called when Electron has finished
@@ -34,9 +34,10 @@ const createWindow = () => {
 app.on('ready', createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on('window-all-closed', (e) => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
+  e.preventDefault();
   if (process.platform !== 'darwin') {
     app.quit();
   }
