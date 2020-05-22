@@ -7,7 +7,6 @@ const breakData = document.querySelector('.break-data');
 const workData = document.querySelector('.work-data');
 const settingsBtn = document.querySelector('.settings-btn');
 const timerSettings = document.querySelector('.timer-settings');
-
 const shortBreakValue = document.querySelector('.short-break-label');
 const workValue = document.querySelector('.work-label');
 const longBreakValue = document.querySelector('.long-break-label');
@@ -117,12 +116,6 @@ const displayTime = (seconds) => {
   }${remainer}`;
 };
 
-const handleSettings = () => {
-  timerSettings.style.display === 'none'
-    ? (timerSettings.style.display = 'flex')
-    : (timerSettings.style.display = 'none');
-};
-
 const onChange = (
   e,
   type = e.target.className,
@@ -156,6 +149,8 @@ shortBreak.addEventListener('click', handleShortBreak);
 longBreak.addEventListener('click', handleLongBreak);
 timerBtn.addEventListener('click', handleTimer);
 startBtn.addEventListener('click', controlTimer);
-settingsBtn.addEventListener('click', handleSettings);
-
+settingsBtn.addEventListener('click', () =>
+  timerSettings.classList.toggle('on')
+);
 timerSettings.addEventListener('change', onChange);
+timerBtn.click();

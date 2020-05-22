@@ -65,8 +65,11 @@ header .timer-settings {
   flex-direction: column;
   color: var(--background);
   font-size: 12px;
-  padding: .5rem 1rem;
-  transition: opacity .4s ease-out;
+  padding: 0.5rem 1rem;
+  transition: opacity 0.4s ease-out;
+}
+header .on {
+  display: flex;
 }
 header .timer-settings span {
   display: flex;
@@ -78,6 +81,7 @@ header .timer-settings input:active {
 header .timer-settings input:hover {
   cursor: pointer;
 }
+
 .logo {
   font-size: 22px;
   margin-right: 5px;
@@ -161,4 +165,8 @@ main .start:active {
   margin: auto;
   margin-top: auto;
   padding: 0 10px;
+}
+
+.data .s-text {
+  font-size: 10px;
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Focus</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css" />
     <script defer src="renderer.js"></script>
   </head>
   <body>
@@ -15,17 +15,31 @@
           <label>Work</label>
           <label class="work-label">25 mins</label>
         </span>
-        <input class="work" type="range" min="20" max="120" value="25" step="5" />
+        <input
+          class="work"
+          type="range"
+          min="20"
+          max="120"
+          value="25"
+          step="5"
+        />
         <span>
           <label>Short break</label>
           <label class="short-break-label">5 mins</label>
         </span>
-        <input class="short" type="range" min="5" max="20" value="5" step="5"/>
+        <input class="short" type="range" min="5" max="20" value="5" step="5" />
         <span>
           <label>Long break</label>
           <label class="long-break-label">15 mins</label>
         </span>
-        <input class="long" type="range" min="15" max="60" value="15" step="5"/>
+        <input
+          class="long"
+          type="range"
+          min="15"
+          max="60"
+          value="15"
+          step="5"
+        />
       </div>
     </header>
     <main>
@@ -44,8 +58,14 @@
       </button>
     </main>
     <div class="data">
-      <p>Total work time: <span class="work-data">0</span> mins</p>
-      <p>Total break time: <span class="break-data">0</span> mins</p>
+      <p>
+        Total work time: <span class="work-data">0</span>
+        <span class="s-text">mins</span>
+      </p>
+      <p>
+        Total break time: <span class="break-data">0</span>
+        <span class="s-text">mins</span>
+      </p>
     </div>
   </body>
 </html>
