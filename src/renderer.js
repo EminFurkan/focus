@@ -9,17 +9,20 @@ const settingsBtn = document.querySelector('.settings-btn');
 const timerSettings = document.querySelector('.timer-settings');
 
 const shortBreakValue = document.querySelector('.short-break-label');
-const workValue = document.querySelector('.work-break-label');
+const workValue = document.querySelector('.work-label');
 const longBreakValue = document.querySelector('.long-break-label');
 
-const workInput = document.querySelector('.work');
-const shortBreakInput = document.querySelector('.short');
-const longBreakInput = document.querySelector('.long');
-
 let countDown;
-let seconds = 25 * 60;
 let type;
 let isPaused = false;
+
+let userPreference = {
+  work: 25,
+  shortBreak: 5,
+  longBreak: 15
+};
+
+let seconds;
 
 const data = {
   totalMins: 0,
@@ -47,26 +50,28 @@ displayData = () => {
 const handleShortBreak = () => {
   document.body.classList.add('short');
   document.body.classList.remove('long');
-  timer.textContent = '05:00';
-  seconds = 5 * 60;
+  seconds = userPreference.shortBreak * 60;
   type = 'SHORT_BREAK';
+  timer.textContent = `${userPreference.shortBreak < 10 ? '0' : ''}${
+    userPreference.shortBreak
+  }:00`;
   controlTimer();
   resetTimer();
 };
 const handleLongBreak = () => {
   document.body.classList.add('long');
   document.body.classList.remove('short');
-  timer.textContent = '15:00';
-  seconds = 15 * 60;
+  seconds = userPreference.longBreak * 60;
   type = 'LONG_BREAK';
+  timer.textContent = `${userPreference.longBreak}:00`;
   controlTimer();
   resetTimer();
 };
 const handleTimer = () => {
   document.body.className = '';
-  timer.textContent = '25:00';
-  seconds = 25 * 60;
+  seconds = userPreference.work * 60;
   type = 'WORK';
+  timer.textContent = `${userPreference.work}:00`;
   controlTimer();
   resetTimer();
 };
@@ -116,12 +121,36 @@ const handleSettings = () => {
   timerSettings.style.display === 'none'
     ? (timerSettings.style.display = 'flex')
     : (timerSettings.style.display = 'none');
-    console.log(timerSettings.style.display);
 };
 
-const onChange = (e) => {
-  console.log(e.target.value);
-}
+const onChange = (
+  e,
+  type = e.target.className,
+  value = Number(e.target.value)
+) => {
+  switch (type) {
+    case 'work':
+      return (
+        (workValue.textContent = `${value} mins`),
+        (userPreference.work = value),
+        (timer.textContent = `${userPreference.work}:00`)
+      );
+    case 'short':
+      return (
+        (shortBreakValue.textContent = `${value} mins`),
+        (userPreference.shortBreak = value),
+        (timer.textContent = `${userPreference.shortBreak}:00`)
+      );
+    case 'long':
+      return (
+        (longBreakValue.textContent = `${value} mins`),
+        (userPreference.longBreak = value),
+        (timer.textContent = `${userPreference.longBreak}:00`)
+      );
+    default:
+      return e.target.value;
+  }
+};
 
 shortBreak.addEventListener('click', handleShortBreak);
 longBreak.addEventListener('click', handleLongBreak);
@@ -129,7 +158,4 @@ timerBtn.addEventListener('click', handleTimer);
 startBtn.addEventListener('click', controlTimer);
 settingsBtn.addEventListener('click', handleSettings);
 
-workInput.addEventListener('change', onChange);
-shortBreakInput.addEventListener('change', onChange);
-longBreakInput.addEventListener('change', onChange);
-
+timerSettings.addEventListener('change', onChange);
