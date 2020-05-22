@@ -1,5 +1,3 @@
-const { ipcRenderer } = require('electron');
-
 const timer = document.querySelector('.timer');
 const timerBtn = document.querySelector('.timerBtn');
 const startBtn = document.querySelector('.start');
@@ -12,7 +10,7 @@ const settings = document.querySelector('.settings-btn');
 let countDown;
 let seconds = 25 * 60;
 let type;
-let isPaused = true;
+let isPaused = false;
 
 const data = {
   totalMins: 0,
@@ -77,7 +75,13 @@ const controlTimer = () => {
         clearInterval(countDown);
         setData(seconds, type);
         displayData();
-        ipcRenderer.send('notification', 'Your timer has finished.');
+
+        let msg;
+        type.length > 4 ? (msg = 'Time for a break!') : (msg = 'Back to work!');
+
+        new window.Notification('Focus', {
+          body: msg
+        });
       }
       displayTime(timeLeft);
     }, 1000);

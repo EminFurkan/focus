@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -14,7 +14,9 @@ const createWindow = () => {
       nodeIntegration: true
     },
     width: 800,
-    height: 600
+    height: 600,
+    title: 'Focus',
+    icon: __dirname + '/assets/clock.ico'
   });
 
   // and load the index.html of the app.
@@ -23,10 +25,7 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  ipcMain.on('notification', (err, data) => {
-    let notification = new Notification('Focus', {body: data});
-    notification.show();
-  });
+  app.dock.setIcon(__dirname + '/assets/clock.ico');
 };
 
 // This method will be called when Electron has finished
