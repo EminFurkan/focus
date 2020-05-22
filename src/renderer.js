@@ -13,6 +13,7 @@ const longBreakValue = document.querySelector('.long-break-label');
 
 let countDown;
 let type;
+let seconds;
 let isPaused = false;
 
 let userPreference = {
@@ -21,21 +22,19 @@ let userPreference = {
   longBreak: 15
 };
 
-let seconds;
-
 const data = {
   totalMins: 0,
   totalBreaks: 0
 };
 
-const setData = (mins, type) => {
+const setData = (type) => {
   switch (type) {
     case 'WORK':
-      return (data.totalMins += mins);
+      return (data.totalMins += userPreference.work);
     case 'SHORT_BREAK':
-      return (data.totalBreaks += 5);
+      return (data.totalBreaks += userPreference.shortBreak);
     case 'LONG_BREAK':
-      return (data.totalBreaks += 15);
+      return (data.totalBreaks += userPreference.longBreak);
     default:
       return data;
   }
@@ -76,21 +75,22 @@ const handleTimer = () => {
 };
 
 const controlTimer = () => {
+  console.log('click');
   const now = Date.now();
   const then = now + seconds * 1000;
-  isPaused = !isPaused;
+  startBtn.textContent === 'Start' ? (isPaused = false) : (isPaused = true);
 
   if (!isPaused) {
-    startBtn.textContent = 'Stop';
+    startBtn.textContent = 'Cancel';
     countDown = setInterval(() => {
       const timeLeft = Math.round((then - Date.now()) / 1000);
       if (timeLeft < 1) {
         clearInterval(countDown);
-        setData(seconds, type);
+        setData(type);
         displayData();
 
         let msg;
-        type.length > 4 ? (msg = 'Time for a break!') : (msg = 'Back to work!');
+        type === 'WORK' ? (msg = 'Time for a break!') : (msg = 'Back to work!');
 
         new window.Notification('Focus', {
           body: msg
@@ -126,19 +126,22 @@ const onChange = (
       return (
         (workValue.textContent = `${value} mins`),
         (userPreference.work = value),
-        (timer.textContent = `${userPreference.work}:00`)
+        (timer.textContent = `${userPreference.work}:00`),
+        (seconds = userPreference.work * 60)
       );
     case 'short':
       return (
         (shortBreakValue.textContent = `${value} mins`),
         (userPreference.shortBreak = value),
-        (timer.textContent = `${userPreference.shortBreak}:00`)
+        (timer.textContent = `${userPreference.shortBreak}:00`),
+        (seconds = userPreference.shortBreak * 60)
       );
     case 'long':
       return (
         (longBreakValue.textContent = `${value} mins`),
         (userPreference.longBreak = value),
-        (timer.textContent = `${userPreference.longBreak}:00`)
+        (timer.textContent = `${userPreference.longBreak}:00`),
+        (seconds = userPreference.longBreak * 60)
       );
     default:
       return e.target.value;
