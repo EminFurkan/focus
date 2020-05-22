@@ -3,13 +3,31 @@
   <head>
     <meta charset="UTF-8">
     <title>Focus</title>
-    <link rel="stylesheet" href="index.css">
-    <script defer src="render.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <script defer src="renderer.js"></script>
   </head>
   <body>
     <header>
       <h2>Focus</h2>
       <button class="settings-btn"><span class="logo">⚙</span> Settings</button>
+      <div class="timer-settings">
+        <span>
+          <label>Work</label>
+          <label class="work-label">25 mins</label>
+        </span>
+        <input class="work" type="range" min="20" max="120" value="25" step="5" />
+        <span>
+          <label>Short break</label>
+          <label class="short-break-label">5 mins</label>
+        </span>
+        <input class="short" type="range" min="5" max="20" value="5" step="5"/>
+        <span>
+          <label>Long break</label>
+          <label class="long-break-label">15 mins</label>
+        </span>
+        <input class="long" type="range" min="15" max="60" value="15" step="5"/>
+        <button>Apply Changes</button>
+      </div>
     </header>
     <main>
       <div class="settings">

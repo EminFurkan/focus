@@ -5,7 +5,16 @@ const shortBreak = document.querySelector('.s-break');
 const longBreak = document.querySelector('.l-break');
 const breakData = document.querySelector('.break-data');
 const workData = document.querySelector('.work-data');
-const settings = document.querySelector('.settings-btn');
+const settingsBtn = document.querySelector('.settings-btn');
+const timerSettings = document.querySelector('.timer-settings');
+
+const shortBreakValue = document.querySelector('.short-break-label');
+const workValue = document.querySelector('.work-break-label');
+const longBreakValue = document.querySelector('.long-break-label');
+
+const workInput = document.querySelector('.work');
+const shortBreakInput = document.querySelector('.short');
+const longBreakInput = document.querySelector('.long');
 
 let countDown;
 let seconds = 25 * 60;
@@ -103,7 +112,24 @@ const displayTime = (seconds) => {
   }${remainer}`;
 };
 
+const handleSettings = () => {
+  timerSettings.style.display === 'none'
+    ? (timerSettings.style.display = 'flex')
+    : (timerSettings.style.display = 'none');
+    console.log(timerSettings.style.display);
+};
+
+const onChange = (e) => {
+  console.log(e.target.value);
+}
+
 shortBreak.addEventListener('click', handleShortBreak);
 longBreak.addEventListener('click', handleLongBreak);
 timerBtn.addEventListener('click', handleTimer);
 startBtn.addEventListener('click', controlTimer);
+settingsBtn.addEventListener('click', handleSettings);
+
+workInput.addEventListener('change', onChange);
+shortBreakInput.addEventListener('change', onChange);
+longBreakInput.addEventListener('change', onChange);
+
